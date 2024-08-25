@@ -12,19 +12,19 @@ import os
 def runner():
     today = (date.today())
     api_key = '{}'
-
+    //URL 
     base_url = "https://newsapi.org/v2/everything?q={}&from={}&to={}&sortBy=popularity&apiKey={}&language=en"
     print(base_url)
     start_date_value = str(today - datetime.timedelta(days=1))
     end_date_value = str(today)
-
+    //fetching only required columns by converting into dataframes
     df = pd.DataFrame(columns=['newsTitle', 'timestamp', 'url_source', 'content', 'source', 'author', 'urlToImage'])
 
     url_extractor = base_url.format('Covid', start_date_value, end_date_value, api_key)
     print(url_extractor)
     response = requests.get(url_extractor)
     d = response.json()
-
+    //filtering response
     for i in d['articles']:
         newsTitle = i['title']
         timestamp = i['publishedAt']
